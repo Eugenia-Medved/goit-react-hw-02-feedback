@@ -20,11 +20,7 @@ function FeedbackOptions({ options, onLeaveFeedback }) {
 
 FeedbackOptions.propTypes = {
   onLeaveFeedback: PropTypes.func,
-  options: PropTypes.arrayOf(
-    PropTypes.exact({
-      option: PropTypes.object,
-    }),
-  ),
+  options: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default FeedbackOptions;
