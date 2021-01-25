@@ -1,11 +1,8 @@
-import shortid from 'shortid';
-
-function Filter({ value, onChange }) {
-  const findId = shortid.generate();
+function Filter({ findId }) {
   return (
     <>
       <label for={findId}>Find contacts by name</label>
-      <input id={findId} type="text" value={value} onChange={onChange} />
+      <input id={findId} type="text" />
     </>
   );
 }

@@ -1,6 +1,4 @@
-import React from 'react';
-
-function ContactList({ contacts, onDeleteNumber }) {
+function ContactList({ contacts }) {
   return (
     <ul>
       {contacts.map(contact => (
@@ -8,9 +6,7 @@ function ContactList({ contacts, onDeleteNumber }) {
           <span>
             {contact.name}:{contact.number}
           </span>
-          <button type="button" onClick={() => onDeleteNumber(contact.id)}>
-            Delete
-          </button>
+          <button type="button">Delete</button>
         </li>
       ))}
     </ul>
