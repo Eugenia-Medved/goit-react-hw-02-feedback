@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import shortid from 'shortid';
 import './App.css';
 import Container from 'components/Container/Container';
 import ContactForm from 'components/ContactForm/ContactForm';
@@ -14,20 +15,54 @@ class App extends Component {
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
-    name: '',
-    number: '',
+  };
+
+  addNumber = (nam, tel) => {
+    if (this.state.contacts.find(contact => contact.name === nam)) {
+      alert(`${nam} is already in contacts!!!`);
+    }
+    const contact = {
+      id: shortid.generate(),
+      name: nam,
+      number: tel,
+    };
+
+    this.setState(({ contacts }) => ({
+      contacts: [contact, ...contacts],
+    }));
+  };
+
+  deleteNumber = numberId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== numberId),
+    }));
+  };
+
+  changeFilter = e => {
+    this.setState({ filter: e.currentTarget.value });
+  };
+
+  getVisibleTodos = () => {
+    const { filter, contacts } = this.state;
+
+    const normFilter = filter.toLowerCase();
+
+    return contacts.filter(contact => contact.name.toLowerCase().includes(normFilter));
   };
 
   render() {
+    const { filter } = this.state;
+    const visibleTodos = this.getVisibleTodos();
+
     return (
       <>
         <Container>
           <h1>Phonebook</h1>
-          <ContactForm />
+          <ContactForm onSubmit={this.addNumber} />
         </Container>
         <Container title="Contacts">
-          <Filter />
-          <ContactList contacts={this.state.contacts} />
+          <Filter value={filter} onChange={this.changeFilter} />
+          <ContactList contacts={visibleTodos} onDeleteNumber={this.deleteNumber} />
         </Container>
       </>
     );
