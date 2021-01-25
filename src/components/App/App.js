@@ -20,7 +20,6 @@ class App extends Component {
   addNumber = (nam, tel) => {
     if (this.state.contacts.find(contact => contact.name === nam)) {
       alert(`${nam} is already in contacts!!!`);
-      return;
     }
     const contact = {
       id: shortid.generate(),
